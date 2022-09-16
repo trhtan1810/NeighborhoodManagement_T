@@ -1,0 +1,51 @@
+CREATE TABLE `useritem` (
+  `tenTaiKhoan` varchar(20) NOT NULL,
+  `matKhau` varchar(20) NOT NULL,
+  `vaiTro` varchar(20) NOT NULL,
+  PRIMARY KEY (`tenTaiKhoan`)
+);
+
+CREATE TABLE `khupho` (
+	`maKhuPho` varchar(20) NOT NULL,
+	`tenKhuPho` varchar(20) NOT NULL,
+	PRIMARY KEY (`maKhuPho`) 
+);
+
+CREATE TABLE `hodan` (
+  `maHoDan` varchar(20) NOT NULL,
+  `soThanhVien` int(3) NOT NULL,
+  `soNha` int(4) NOT NULL,
+  `maKhuPho` varchar(20) NOT NULL,
+   PRIMARY KEY (`maHoDan`),
+   FOREIGN KEY (`maKhuPho`) REFERENCES `khupho`(`maKhuPho`) ON DELETE CASCADE
+);
+
+CREATE TABLE `nguoi` (
+  `maNguoi` varchar(20) NOT NULL,
+  `hoVaTen` varchar(20) NOT NULL,
+  `tuoi` int(3) NOT NULL,
+  `namSinh` int(4) NOT NULL,
+  `maHoDan` varchar(20) NOT NULL,
+  `ngheNghiep` varchar(20) NOT NULL,
+   PRIMARY KEY (`maNguoi`),
+   FOREIGN KEY (`maHoDan`) REFERENCES `hodan`(`maHoDan`) ON DELETE CASCADE
+);
+
+INSERT INTO `useritem` (`tenTaiKhoan`, `matKhau`, `vaiTro`) VALUES 
+('Admintest', '1', 'admin'),
+('Usertest', '1', 'user');
+
+INSERT INTO `khupho` (`maKhuPho`, `tenKhuPho`) VALUES
+('KP01', 'KIM DONG'),
+('KP02', 'GIAP BAT'),
+('KP03', 'TRUONG DINH');
+
+INSERT INTO `hodan` (`maHoDan`, `soThanhVien`, `soNha`, `maKhuPho`) VALUES
+('HD01', 1, 1, 'KP01'),
+('HD02', 1, 2, 'KP02'),
+('HD03', 1, 3, 'KP03');
+
+INSERT INTO `nguoi` (`maNguoi`, `hoVaTen`, `tuoi`, `namSinh`, `ngheNghiep`, `maHoDan`) VALUES
+('NG01', 'Trinh Hoang Test1', 80, 1942, 'trieu phu', 'HD01'),
+('NG02', 'Trinh Hoang Test2', 90, 1932, 'ty phu', 'HD02'),
+('NG03', 'Trinh Hoang Test3', 100, 1922, 'chu tich', 'HD03');
